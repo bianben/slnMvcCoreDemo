@@ -1,0 +1,75 @@
+﻿@model IEnumerable<prjMvcCoreDemo.Models.TProduct>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>產品列表</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@using (Html.BeginForm())
+{
+    @:關鍵字
+    <input type="text" name="txtKeyword" />
+    <input type="submit" value="查詢" />
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FQty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FImagePath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>
+                        @count
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FQty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FCost)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FImagePath)
+                    </td>
+                    <td>
+                        @Html.ActionLink("編輯", "Edit", new { id=item.FId}) |
+                        @Html.ActionLink("刪除", "Delete", new { id=item.FId})
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
