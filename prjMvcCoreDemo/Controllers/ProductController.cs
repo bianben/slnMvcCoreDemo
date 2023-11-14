@@ -4,7 +4,7 @@ using prjMvcCoreDemo.ViewModels;
 
 namespace prjMvcCoreDemo.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : SuperController
     {
         private IWebHostEnvironment _enviro = null;
         public ProductController(IWebHostEnvironment p)
@@ -58,20 +58,21 @@ namespace prjMvcCoreDemo.Controllers
             return View(x);
         }
         [HttpPost]
-        public ActionResult Edit(TProduct p)
+        public ActionResult Edit(CProductWrap p)
         {
             DbDemoContext db = new DbDemoContext();
             var item = (from t in db.TProducts
                         where t.FId == p.FId
                         select t).FirstOrDefault();
-            //if (p.photo != null)
-            //{
-            //    string photoName = Guid.NewGuid().ToString() + ".jpg";
-            //    item.fImagePath = photoName;
-            //    p.photo.SaveAs(Server.MapPath("../../Images/" + photoName));
-            //}
+            
             if (item != null)
             {
+                if (p.photo != null)
+                {
+                    string photoName = Guid.NewGuid().ToString() + ".jpg";
+                    item.FImagePath = photoName;
+                    p.photo.CopyTo(new FileStream(_enviro.WebRootPath + "/Images/" + photoName, FileMode.Create));
+                }
                 item.FId = p.FId;
                 item.FName = p.FName;
                 item.FQty = p.FQty;

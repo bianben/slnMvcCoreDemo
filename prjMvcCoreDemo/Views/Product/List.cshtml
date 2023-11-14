@@ -7,7 +7,7 @@
 <h1>產品列表</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">新增產品</a>
 </p>
 @using (Html.BeginForm())
 {
@@ -62,11 +62,13 @@
                         @Html.DisplayFor(modelItem => item.FPrice)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FImagePath)
+                        @*@Html.DisplayFor(modelItem => item.FImagePath)*@
+                        <img src="~/Images/@item.FImagePath" width="60" height="45">
                     </td>
                     <td>
                         @Html.ActionLink("編輯", "Edit", new { id=item.FId}) |
-                        @Html.ActionLink("刪除", "Delete", new { id=item.FId})
+                        @Html.ActionLink("刪除", "Delete", new { id=item.FId},
+                new { onclick = "return confirm('確定要刪除嗎?')" })
                     </td>
                 </tr>
             }

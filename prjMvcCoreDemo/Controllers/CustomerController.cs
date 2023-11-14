@@ -5,7 +5,7 @@ using prjMvcCoreDemo.ViewModels;
 
 namespace prjMvcCoreDemo.Controllers
 {
-    public class CustomerController : Controller
+    public class CustomerController : SuperController
     {
         public IActionResult Index()
         {
